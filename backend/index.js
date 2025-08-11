@@ -1,4 +1,3 @@
-import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/database.js";
 import userRoute from "./routes/userRoute.js";
@@ -16,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-// CORS config (API + Socket.io match)
+// CORS config
 const allowedOrigin = "https://chat-app-static-wtt5.onrender.com";
 app.use(
   cors({
@@ -28,20 +27,14 @@ app.use(
 );
 
 // Preflight handler
-app.options(
-  "*",
-  cors({
-    origin: allowedOrigin,
-    credentials: true,
-  })
-);
+app.options("*", cors({ origin: allowedOrigin, credentials: true }));
 
 // Routes
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/message", messageRoute);
 
-// Start server
+// Start server only here
+connectDB();
 server.listen(PORT, () => {
-  connectDB();
   console.log(`✅ Server running on port ${PORT}`);
 });
