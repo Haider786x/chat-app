@@ -29,6 +29,7 @@
 //   connectDB();
 //   console.log(`Server listen at prot ${PORT}`);
 // });
+import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/database.js";
 import userRoute from "./routes/userRoute.js";
